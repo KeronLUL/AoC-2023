@@ -66,15 +66,13 @@ make clean
 ## Running
 
 ```
-make run <day>
+make run day=<day>
 ```
 
 Example:
 
 ```
-make run day1
+make run day=day01
 ```
 
 ---
-
-✨🎄🎁🎄🎅🎄🎁🎄✨

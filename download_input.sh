@@ -6,7 +6,7 @@ session=$(cat ".session")
 usage() {
     echo "Usage: $0 -d <day>"
     echo "Options:"
-    echo "  -d <day>: Specify the day to download. Values from 1 to 25."
+    echo "  -d <day>: Specify the day to download. Values from 1 to 25. Format 01, 02, ..., 25."
 }
 
 while getopts ":d:v:h" opt; do
@@ -34,7 +34,7 @@ done
 if [ -z "$day" ]; then
     echo "Missing day argument."
 else
-    curl -b "session=${session}" -o "input/day${day}" "https://adventofcode.com/2023/day/${day}/input" > /dev/null 2>&1
+    curl -b "session=${session}" -o "input/day${day}" "https://adventofcode.com/2023/day/$((day))/input" > /dev/null 2>&1
 fi
 
 
