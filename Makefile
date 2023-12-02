@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -Wextra -pedantic -std=c++17
 
-DAYS = day01
+DAYS = day01 day02
 OBJ = $(DAYS:%=src/%.o)
 SOURCE	= $(DAYS:%=src/%.cpp)
 day =
