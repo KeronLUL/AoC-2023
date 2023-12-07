@@ -7,7 +7,7 @@ typedef std::vector<std::tuple<int, char, int>> vtChar;
 typedef std::vector<std::tuple<int, int, int>> vtInt;
 typedef std::map<std::pair<size_t, size_t>, std::tuple<size_t, size_t>> ptMap;
 
-void check_symbol(vtChar symbols, std::tuple<int, int, int> tuple, ptMap *map, size_t *sum_part1){
+void check_symbol(const vtChar& symbols, const std::tuple<int, int, int>& tuple, ptMap *map, size_t *sum_part1){
     for (size_t i = 0; i < symbols.size(); i++){
         if (std::get<0>(symbols[i]) >= std::get<1>(tuple) && std::get<0>(symbols[i]) <= std::get<2>(tuple) ) {
             *sum_part1 += std::get<0>(tuple);

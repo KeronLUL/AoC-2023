@@ -87,15 +87,13 @@ void solution(std::istream& input, size_t *sum_part1, size_t *sum_part2){
         cards_joker.push_back(std::make_tuple(hand, value, hand_strength_joker(hand)));
     }
     
-    std::string order = "23456789TJQKA";
     std::sort(cards.begin(), cards.end(), compare_hands);
-    std::sort(cards.begin(), cards.end(), [order](const Tuple& tHand1, const Tuple& tHand2) {
-        return compare_high_card(tHand1, tHand2, order);
+    std::sort(cards.begin(), cards.end(), [](const Tuple& tHand1, const Tuple& tHand2) {
+        return compare_high_card(tHand1, tHand2, "23456789TJQKA");
     });
-    order = "J23456789TQKA";
     std::sort(cards_joker.begin(), cards_joker.end(), compare_hands);
-    std::sort(cards_joker.begin(), cards_joker.end(), [order](const Tuple& tHand1, const Tuple& tHand2) {
-        return compare_high_card(tHand1, tHand2, order);
+    std::sort(cards_joker.begin(), cards_joker.end(), [](const Tuple& tHand1, const Tuple& tHand2) {
+        return compare_high_card(tHand1, tHand2, "J23456789TQKA");
     });
 
     for (size_t i = 0; i < cards.size(); i++){
