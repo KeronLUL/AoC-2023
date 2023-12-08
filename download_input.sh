@@ -34,7 +34,7 @@ done
 if [ -z "$day" ]; then
     echo "Missing day argument."
 else
-    curl -b "session=${session}" -o "input/day${day}" "https://adventofcode.com/2023/day/$((day))/input" > /dev/null 2>&1
+    curl -b "session=${session}" -o "input/day${day}" "https://adventofcode.com/2023/day/$((10#$day))/input" > /dev/null 2>&1
 fi
 
 
