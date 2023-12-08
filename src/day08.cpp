@@ -22,13 +22,10 @@ void solution(std::istream& input, size_t *part1, size_t *part2){
     }
 
     Map starting_nodes;
-    Map ending_nodes;
     for (const auto& map : maps){
         const std::string& key = map.first;
         if (key.back() == 'A'){
             starting_nodes.insert(map);
-        } else if (key.back() == 'Z'){
-            ending_nodes.insert(map);
         }
     }
 
