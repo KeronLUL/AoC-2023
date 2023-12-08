@@ -76,7 +76,7 @@ bool compare_high_card(const Tuple& tHand1, const Tuple& tHand2, const std::stri
     return std::get<2>(tHand1) < std::get<2>(tHand2);
 }
 
-void solution(std::istream& input, size_t *sum_part1, size_t *sum_part2){
+void solution(std::istream& input, size_t& sum_part1, size_t& sum_part2){
     std::string line;
     Vector cards;
     Vector cards_joker;
@@ -97,8 +97,8 @@ void solution(std::istream& input, size_t *sum_part1, size_t *sum_part2){
     });
 
     for (size_t i = 0; i < cards.size(); i++){
-        *sum_part1 += std::get<1>(cards[i]) * (i+1);
-        *sum_part2 += std::get<1>(cards_joker[i]) * (i+1);
+        sum_part1 += std::get<1>(cards[i]) * (i+1);
+        sum_part2 += std::get<1>(cards_joker[i]) * (i+1);
     }
 }
 
@@ -108,7 +108,7 @@ int main(){
     size_t sum_part1 = 0;
     size_t sum_part2 = 0;
 
-    solution(input, &sum_part1, &sum_part2);
+    solution(input, sum_part1, sum_part2);
 
     std::cout << "Part 1: " << sum_part1 << std::endl;
     std::cout << "Part 2: " << sum_part2 << std::endl;

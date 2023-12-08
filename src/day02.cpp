@@ -5,7 +5,7 @@
 #define MAX_GREEN 13
 #define MAX_BLUE 14
 
-void part1(std::string line, size_t *sum){
+void part1(std::string line, size_t& sum){
     std::string input = line.substr(line.find(':') + 1);
     std::string game = line.substr(0, line.find(':'));
     size_t id = std::stoi(game.substr(game.find(' ')));
@@ -27,10 +27,10 @@ void part1(std::string line, size_t *sum){
             break;
         }
     }
-    if (is_valid) *sum += id;
+    sum = is_valid ? sum + id : sum;
 }
 
-void part2(std::string line, size_t *sum){
+void part2(std::string line, size_t& sum){
     std::string input = line.substr(line.find(':') + 1);
     int min_r = 0;
     int min_g = 0;
@@ -52,7 +52,7 @@ void part2(std::string line, size_t *sum){
         min_g = std::stoi(green_count) > min_g ? std::stoi(green_count) : min_g;
         min_b = std::stoi(blue_count) > min_b ? std::stoi(blue_count) : min_b;
     }
-    *sum += (min_r * min_g * min_b);
+    sum += (min_r * min_g * min_b);
 }
 
 int main(){
@@ -61,8 +61,8 @@ int main(){
     size_t sum_part1 = 0;
     size_t sum_part2 = 0;
     while(std::getline(input, line)){
-        part1(line, &sum_part1);
-        part2(line, &sum_part2);
+        part1(line, sum_part1);
+        part2(line, sum_part2);
     }
     std::cout << "Sum for part1: " << sum_part1 << std::endl;
     std::cout << "Sum for part2: " << sum_part2 << std::endl;

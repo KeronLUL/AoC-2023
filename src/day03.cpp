@@ -7,24 +7,24 @@ typedef std::vector<std::tuple<int, char, int>> vtChar;
 typedef std::vector<std::tuple<int, int, int>> vtInt;
 typedef std::map<std::pair<size_t, size_t>, std::tuple<size_t, size_t>> ptMap;
 
-void check_symbol(const vtChar& symbols, const std::tuple<int, int, int>& tuple, ptMap *map, size_t *sum_part1){
+void check_symbol(const vtChar& symbols, const std::tuple<int, int, int>& tuple, ptMap& map, size_t& sum_part1){
     for (size_t i = 0; i < symbols.size(); i++){
         if (std::get<0>(symbols[i]) >= std::get<1>(tuple) && std::get<0>(symbols[i]) <= std::get<2>(tuple) ) {
-            *sum_part1 += std::get<0>(tuple);
+            sum_part1 += std::get<0>(tuple);
             if (std::get<1>(symbols[i]) == '*') {
                 std::pair<size_t, size_t> map_key = std::make_pair(std::get<0>(symbols[i]), std::get<2>(symbols[i]));
-                if (map->find(map_key) == map->end()) {
-                    map->insert(std::make_pair(map_key, std::make_tuple(1, std::get<0>(tuple))));
+                if (map.find(map_key) == map.end()) {
+                    map.insert(std::make_pair(map_key, std::make_tuple(1, std::get<0>(tuple))));
                 } else {
-                    std::get<0>((*map)[map_key])++;
-                    std::get<1>((*map)[map_key]) *= std::get<0>(tuple);
+                    std::get<0>(map[map_key])++;
+                    std::get<1>(map[map_key]) *= std::get<0>(tuple);
                 }
             }
         }
     }
 }
 
-void solution(std::istream &input, size_t *sum_part1, size_t *sum_part2){
+void solution(std::istream &input, size_t& sum_part1, size_t& sum_part2){
     std::string line;
     std::vector<vtChar> symbols;
     std::vector<vtInt> numbers;
@@ -59,15 +59,15 @@ void solution(std::istream &input, size_t *sum_part1, size_t *sum_part2){
     ptMap map;
     for (size_t i = 0; i < numbers.size(); i++){
         for ( auto tuple : numbers[i]) {
-            check_symbol(symbols[i], tuple, &map, sum_part1);
-            i != 0 ? check_symbol(symbols[i-1], tuple, &map, sum_part1) : void();
-            i != numbers.size() - 1 ? check_symbol(symbols[i+1], tuple, &map, sum_part1) : void();
+            check_symbol(symbols[i], tuple, map, sum_part1);
+            i != 0 ? check_symbol(symbols[i-1], tuple, map, sum_part1) : void();
+            i != numbers.size() - 1 ? check_symbol(symbols[i+1], tuple, map, sum_part1) : void();
         } 
     }
 
     for (auto gear : map) {
         if (std::get<0>(gear.second) == 2) {
-            *sum_part2 += std::get<1>(gear.second);
+            sum_part2 += std::get<1>(gear.second);
         }
     }
 }
@@ -78,7 +78,7 @@ int main(){
     size_t sum_part1 = 0;
     size_t sum_part2 = 0;
     
-    solution(input, &sum_part1, &sum_part2);
+    solution(input, sum_part1, sum_part2);
     
     std::cout << "Sum for part1: " << sum_part1 << std::endl;
     std::cout << "Sum for part2: " << sum_part2 << std::endl;

@@ -4,15 +4,15 @@
 #include <map>
 #include <cmath>
 
-void extract_numbers(std::string input, std::vector<int> *numbers){
+void extract_numbers(std::string input, std::vector<int>& numbers){
     std::istringstream stream(input);
     int number;
     while (stream >> number){
-        numbers->push_back(number);
+        numbers.push_back(number);
     }
 }
 
-void solution(std::istream& input, size_t *sum, size_t *sum_part2){
+void solution(std::istream& input, size_t& sum_part1, size_t& sum_part2){
     std::vector<std::tuple<int, std::vector<int>>> cards;
     std::string line;
 
@@ -28,8 +28,8 @@ void solution(std::istream& input, size_t *sum, size_t *sum_part2){
         std::istringstream stream(line.substr(line.find(' '), line.find(':')));
         int card_num = stream >> card_num ? card_num : 0;
 
-        extract_numbers(win_numbers, &win);
-        extract_numbers(elf_numbers, &elf);
+        extract_numbers(win_numbers, win);
+        extract_numbers(elf_numbers, elf);
 
         for (auto win_num : win){
             for (auto elf_num : elf){
@@ -41,14 +41,14 @@ void solution(std::istream& input, size_t *sum, size_t *sum_part2){
         }
         cards.push_back(std::make_pair(1, numbers));
         
-        *sum += counter != 0 ? std::pow(2, counter - 1) : 0;
+        sum_part1 += counter != 0 ? std::pow(2, counter - 1) : 0;
     }
 
     for (size_t i = 0; i < cards.size(); i++){
         for (size_t j = 0; j < std::get<1>(cards[i]).size(); j++){
             std::get<0>(cards[i+1+j]) += std::get<0>(cards[i]);
         }
-        *sum_part2 += std::get<0>(cards[i]);
+        sum_part2 += std::get<0>(cards[i]);
     }
 }
 
@@ -57,7 +57,7 @@ int main(){
     size_t sum_part1 = 0;
     size_t sum_part2 = 0;
 
-    solution(input, &sum_part1, &sum_part2);
+    solution(input, sum_part1, sum_part2);
 
     std::cout << "Part 1: " << sum_part1 << std::endl;
     std::cout << "Part 2: " << sum_part2 << std::endl;

@@ -5,7 +5,7 @@
 
 typedef std::map<std::string, std::tuple<std::string, std::string>> Map;
 
-void solution(std::istream& input, size_t *part1, size_t *part2){
+void solution(std::istream& input, size_t& part1, size_t& part2){
     Map maps;
     std::string line;
     std::string inst;
@@ -33,7 +33,7 @@ void solution(std::istream& input, size_t *part1, size_t *part2){
     for (size_t i = 0; i < inst.size() && key != "ZZZ";){   
         key = inst[i] == 'R' ? std::get<1>(maps[key]) : key = std::get<0>(maps[key]);
         i = key != "ZZZ" && i == inst.size() - 1 ? 0 : i + 1;
-        (*part1)++;
+        part1++;
     }
 
     std::vector<size_t> results;
@@ -48,9 +48,9 @@ void solution(std::istream& input, size_t *part1, size_t *part2){
         results.push_back(counter);
     }
 
-    *part2 = results[0];
+    part2 = results[0];
     for (size_t i = 1; i < results.size(); ++i) {
-        *part2 = std::lcm(*part2, results[i]);
+        part2 = std::lcm(part2, results[i]);
     }
 }
 
@@ -59,7 +59,7 @@ int main(){
     size_t part1 = 0;
     size_t part2 = 0;
 
-    solution(input, &part1, &part2);
+    solution(input, part1, part2);
 
     std::cout << "Part 1: " << part1 << std::endl;
     std::cout << "Part 2: " << part2 << std::endl;
