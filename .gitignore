@@ -33,3 +33,6 @@
 
 # Session data
 .session
+
+# VS Code
+.vscode
