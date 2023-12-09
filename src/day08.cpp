@@ -1,19 +1,20 @@
 #include <iostream>
-#include <vector>
-#include <numeric>
 #include <map>
+#include <numeric>
+#include <vector>
 
 typedef std::map<std::string, std::tuple<std::string, std::string>> Map;
 
-void solution(std::istream& input, size_t& part1, size_t& part2){
+void solution(std::istream &input, size_t &part1, size_t &part2) {
     Map maps;
     std::string line;
     std::string inst;
 
     std::getline(input, inst);
 
-    while (std::getline(input, line)){
-        if (line.empty()) continue;
+    while (std::getline(input, line)) {
+        if (line.empty())
+            continue;
         std::string key = line.substr(0, line.find('=') - 1);
         std::string first_val = line.substr(line.find('(') + 1, 3);
         std::string second_val = line.substr(line.find(')') - 3, 3);
@@ -22,25 +23,25 @@ void solution(std::istream& input, size_t& part1, size_t& part2){
     }
 
     Map starting_nodes;
-    for (const auto& map : maps){
-        const std::string& key = map.first;
-        if (key.back() == 'A'){
+    for (const auto &map : maps) {
+        const std::string &key = map.first;
+        if (key.back() == 'A') {
             starting_nodes.insert(map);
         }
     }
 
     std::string key = maps.begin()->first;
-    for (size_t i = 0; i < inst.size() && key != "ZZZ";){   
+    for (size_t i = 0; i < inst.size() && key != "ZZZ";) {
         key = inst[i] == 'R' ? std::get<1>(maps[key]) : key = std::get<0>(maps[key]);
         i = key != "ZZZ" && i == inst.size() - 1 ? 0 : i + 1;
         part1++;
     }
 
     std::vector<size_t> results;
-    for( const auto& node : starting_nodes){
+    for (const auto &node : starting_nodes) {
         key = node.first;
         size_t counter = 0;
-        for (size_t i = 0; i < inst.size() && key.back() != 'Z';){   
+        for (size_t i = 0; i < inst.size() && key.back() != 'Z';) {
             key = inst[i] == 'R' ? std::get<1>(maps[key]) : key = std::get<0>(maps[key]);
             i = key.back() != 'Z' && i == inst.size() - 1 ? 0 : i + 1;
             counter++;
@@ -54,8 +55,8 @@ void solution(std::istream& input, size_t& part1, size_t& part2){
     }
 }
 
-int main(){
-    std::istream& input = std::cin;
+int main() {
+    std::istream &input = std::cin;
     size_t part1 = 0;
     size_t part2 = 0;
 
