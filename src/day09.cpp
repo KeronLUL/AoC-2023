@@ -41,24 +41,21 @@ void solution(std::istream& input, int64_t& part1, int64_t& part2){
             }
         }
         
-        int64_t sum1 = 0;
-        for(auto it = diffs.rbegin(); it != diffs.rend(); ++it){
-            sum1 += it->back();
-        }
-        part1 += sum1;
-
-        int64_t value = 0;
+        int64_t sum{0};
+        int64_t value{0};
         for(auto it = diffs.rbegin(); it != diffs.rend(); ++it){
             value = it->front() - value;
+            sum += it->back();
         }
+        part1 += sum;
         part2 += value;
     }
 }
 
 int main(){
     std::istream& input = std::cin;
-    int64_t part1 = 0;
-    int64_t part2 = 0;
+    int64_t part1{0};
+    int64_t part2{0};
 
     solution(input, part1, part2);
 
